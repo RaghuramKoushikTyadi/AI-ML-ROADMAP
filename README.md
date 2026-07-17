@@ -13,46 +13,84 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 ### Day 1 - Linear Regression
 
 **Topics Covered**
-- Introduction to Linear Regression
-- Exploratory Data Analysis (EDA)
-- Missing value analysis
-- Duplicate value analysis
-- Correlation analysis
-- One-Hot Encoding
-- Data preprocessing
+
+* Introduction to Linear Regression
+* Exploratory Data Analysis (EDA)
+* Missing value analysis
+* Duplicate value analysis
+* Correlation analysis
+* One-Hot Encoding
+* Data preprocessing
 
 **Project**
-- Student Performance Prediction
+
+* Student Performance Prediction
 
 **Libraries Used**
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
+
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
 
 **Status**
-- Completed data preprocessing
-- Model training in progress
+
+* Completed data preprocessing
+* Completed model training and evaluation
+
+---
+
+### Day 2 - Ridge and Lasso Regression
+
+**Topics Covered**
+
+* Feature Scaling using StandardScaler
+* Ridge Regression (L2 Regularization)
+* Lasso Regression (L1 Regularization)
+* Understanding Regularization
+* Alpha (Regularization Strength)
+* Feature Selection using Lasso
+* Model comparison (Linear vs Ridge vs Lasso)
+
+**Project**
+
+* Comparison of Linear Regression, Ridge Regression, and Lasso Regression on the Student Performance dataset
+
+**Libraries Used**
+
+* Pandas
+* NumPy
+* Scikit-learn
+
+**Status**
+
+* Implemented Ridge Regression
+* Implemented Lasso Regression
+* Compared all three regression models
+* Experimented with different alpha values
+* Completed model evaluation and comparison
 
 ---
 
 ## Roadmap
 
-- [x] Linear Regression
-- [ ] Multiple Linear Regression
-- [ ] Logistic Regression
-- [ ] Decision Trees
-- [ ] Random Forest
-- [ ] Support Vector Machines
-- [ ] K-Nearest Neighbors
-- [ ] Naive Bayes
-- [ ] Clustering
-- [ ] Principal Component Analysis (PCA)
-- [ ] Neural Networks
-- [ ] Deep Learning
-- [ ] Natural Language Processing
-- [ ] Computer Vision
+* [x] Linear Regression
+* [x] Multiple Linear Regression
+* [x] Ridge Regression
+* [x] Lasso Regression
+* [ ] Logistic Regression
+* [ ] Decision Trees
+* [ ] Random Forest
+* [ ] Support Vector Machines
+* [ ] K-Nearest Neighbors
+* [ ] Naive Bayes
+* [ ] Clustering
+* [ ] Principal Component Analysis (PCA)
+* [ ] Neural Networks
+* [ ] Deep Learning
+* [ ] Natural Language Processing
+* [ ] Computer Vision
 
 ---
 
