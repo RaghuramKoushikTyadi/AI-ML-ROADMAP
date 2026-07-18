@@ -73,12 +73,49 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 ---
 
+### Day 3 - Cross Validation and Hyperparameter Tuning
+
+**Topics Covered**
+
+* K-Fold Cross Validation
+* Manual Cross Validation
+* Model Evaluation using Cross Validation
+* Hyperparameter Tuning
+* Ridge Alpha Tuning
+* Lasso Alpha Tuning
+
+**Project**
+
+* Manual implementation of 5-Fold Cross Validation
+* Manual hyperparameter tuning for Ridge and Lasso Regression
+* Comparison of multiple alpha values using K-Fold Cross Validation
+
+**Libraries Used**
+
+* Pandas
+* NumPy
+* Scikit-learn
+
+**Status**
+
+* Implemented manual K-Fold Cross Validation
+* Compared Linear Regression, Ridge Regression, and Lasso Regression on identical folds
+* Calculated average R² scores across all folds
+* Tuned Ridge and Lasso using multiple alpha values
+* Observed Ridge remained relatively stable across different alpha values
+* Found the best-performing Lasso alpha (approximately 0.15) for this dataset
+
+---
+
 ## Roadmap
 
 * [x] Linear Regression
 * [x] Multiple Linear Regression
 * [x] Ridge Regression
 * [x] Lasso Regression
+* [x] K-Fold Cross Validation
+* [x] Hyperparameter Tuning
+* [ ] GridSearchCV
 * [ ] Logistic Regression
 * [ ] Decision Trees
 * [ ] Random Forest

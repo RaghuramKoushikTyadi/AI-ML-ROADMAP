@@ -4,9 +4,9 @@
 
 This project compares Linear Regression, Ridge Regression, and Lasso Regression using the Student Performance dataset.
 
-The objective is to understand how regularization affects regression models, how feature scaling impacts regularized models, and how different values of alpha influence model performance.
+The objective is to understand how regularization affects regression models, how feature scaling impacts regularized models, how K-Fold Cross Validation provides a more reliable evaluation, and how different values of alpha influence model performance.
 
-The project also compares all three models to observe the effect of L1 and L2 regularization on prediction accuracy.
+The project compares all three models and performs manual hyperparameter tuning to determine the best alpha value for Ridge and Lasso Regression.
 
 ---
 
@@ -17,6 +17,9 @@ lin_vs_ridge_vs_lasso_reg/
 │
 ├── ridge.py
 ├── lasso.py
+├── lin_reg_with_g1_g2.py
+├── k_fold_lin_ridge_lasso.py
+├── k_fold_multiple_alphas.py
 ├── student-mat-cleaned.csv
 └── README.md
 ```
@@ -62,7 +65,7 @@ All available features are used to predict the final student grade.
 
 ---
 
-### 3. Split dataset
+### 3. Train/Test Split
 
 ```python
 train_test_split(
@@ -76,6 +79,8 @@ train_test_split(
 * 80% Training Data
 * 20% Testing Data
 
+Used for the initial comparison of Linear, Ridge, and Lasso Regression.
+
 ---
 
 ### 4. Feature Scaling
@@ -87,7 +92,9 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 ```
 
-Feature scaling is applied before training Ridge and Lasso Regression so that every feature contributes on the same scale during regularization.
+Feature scaling is applied before training Ridge and Lasso Regression so that every feature contributes equally during regularization.
+
+For K-Fold Cross Validation, the scaler is fitted separately inside each fold to prevent data leakage.
 
 ---
 
@@ -109,57 +116,94 @@ Used as the baseline model without regularization.
 model = Ridge(alpha=0.1)
 ```
 
-Applies L2 regularization, shrinking coefficients while keeping every feature.
+Applies L2 regularization by shrinking coefficients while keeping every feature.
 
 ---
 
 #### Lasso Regression
 
 ```python
-model = Lasso(alpha=0.1)
+model = Lasso(alpha=0.15)
 ```
 
-Applies L1 regularization, shrinking coefficients and automatically removing less important features by setting some coefficients to zero.
+Applies L1 regularization by shrinking coefficients and removing less important features.
 
 ---
 
-### 6. Prediction
+### 6. Manual K-Fold Cross Validation
 
 ```python
-preds = model.predict(X_test)
+kf = KFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=18
+)
 ```
 
-Each trained model predicts the final grades for unseen students.
+The dataset is split into five folds.
+
+For every fold:
+
+* Training data is selected.
+* Feature scaling is applied.
+* Linear Regression, Ridge Regression, and Lasso Regression are trained.
+* R² score is calculated.
+* The average R² score is computed across all folds.
 
 ---
 
-### 7. Evaluation
+### 7. Manual Hyperparameter Tuning
 
-Metrics used
+Multiple alpha values were tested manually for both Ridge and Lasso Regression.
 
-* Mean Absolute Error (MAE)
-* Mean Squared Error (MSE)
-* R² Score
+Example:
 
-The learned coefficients were also compared to observe the effect of regularization.
+```python
+alphas = [
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.125,
+    0.15
+]
+```
+
+Each alpha was evaluated using 5-Fold Cross Validation to determine the best average R² score.
 
 ---
 
 # Results
 
-| Model                      |  MAE |  MSE |   R² |
-| -------------------------- | ---: | ---: | ---: |
-| Linear Regression          | 1.25 | 2.79 | 0.82 |
-| Ridge Regression           | 1.25 | 2.79 | 0.82 |
-| Lasso Regression (α = 0.1) | 1.02 | 2.15 | 0.86 |
+### Single Train/Test Split
+
+| Model | R² |
+|------|---:|
+| Linear Regression | 0.82 |
+| Ridge Regression | 0.82 |
+| Lasso Regression (α = 0.1) | 0.86 |
+
+---
+
+### Manual 5-Fold Cross Validation
+
+| Model | Average R² |
+|------|-----------:|
+| Linear Regression | 0.8074 |
+| Ridge Regression | 0.8074 |
+| Lasso Regression (Best α ≈ 0.15) | **0.8234** |
+
+---
 
 ### Observation
 
-Linear Regression provided a strong baseline for prediction.
+Linear Regression provided a strong baseline.
 
-Ridge Regression produced almost identical results, indicating that the dataset did not suffer from significant overfitting.
+Ridge Regression produced almost identical performance across all tested alpha values, indicating that this dataset is not highly sensitive to L2 regularization.
 
-Lasso Regression achieved the best performance after tuning the alpha value. By removing weaker features while keeping the important ones, it improved generalization on this dataset.
+Lasso Regression benefited from hyperparameter tuning. An alpha value around **0.15** produced the highest average R² score, improving generalization by removing weaker features while retaining important ones.
+
+K-Fold Cross Validation provided a more reliable estimate of model performance than relying on a single train/test split.
 
 ---
 
@@ -172,9 +216,11 @@ Through this project I learned:
 * Ridge shrinks coefficients but keeps every feature.
 * Lasso can shrink coefficients to exactly zero, performing automatic feature selection.
 * Alpha controls the strength of regularization.
-* Smaller alpha does not always produce better results; the objective is to find the best balance between model complexity and generalization.
 * Different models respond differently to the same alpha value.
-* Regularization is used to improve generalization rather than simply increase training accuracy.
+* How manual K-Fold Cross Validation works.
+* Why preprocessing must be performed inside each fold to avoid data leakage.
+* Why the average cross-validation score is more reliable than a single train/test split.
+* How manual hyperparameter tuning helps identify the best-performing model before using GridSearchCV.
 
 ---
 
@@ -189,7 +235,7 @@ Through this project I learned:
 
 # Future Improvements
 
-* Implement K-Fold Cross Validation
-* Compare average model performance across multiple folds
-* Tune alpha using GridSearchCV
+* Implement GridSearchCV
+* Compare automatically selected alpha values with manual tuning
+* Explore Elastic Net Regression
 * Compare additional regression algorithms
