@@ -6,7 +6,7 @@ This project compares Linear Regression, Ridge Regression, and Lasso Regression 
 
 The objective is to understand how regularization affects regression models, how feature scaling impacts regularized models, how K-Fold Cross Validation provides a more reliable evaluation, and how different values of alpha influence model performance.
 
-The project compares all three models and performs manual hyperparameter tuning to determine the best alpha value for Ridge and Lasso Regression.
+The project compares all three models using manual K-Fold Cross Validation, `cross_val_score()`, and `GridSearchCV` to identify the best alpha value for Ridge and Lasso Regression.
 
 ---
 
@@ -20,6 +20,8 @@ lin_vs_ridge_vs_lasso_reg/
 ├── lin_reg_with_g1_g2.py
 ├── k_fold_lin_ridge_lasso.py
 ├── k_fold_multiple_alphas.py
+├── cross_val_score.py
+├── gridcv.py
 ├── student-mat-cleaned.csv
 └── README.md
 ```
@@ -94,7 +96,7 @@ X_test = scaler.transform(X_test)
 
 Feature scaling is applied before training Ridge and Lasso Regression so that every feature contributes equally during regularization.
 
-For K-Fold Cross Validation, the scaler is fitted separately inside each fold to prevent data leakage.
+For K-Fold Cross Validation, scaling is performed inside a `Pipeline`, ensuring that the scaler is fitted separately within each training fold and preventing data leakage.
 
 ---
 
@@ -152,14 +154,24 @@ For every fold:
 
 ---
 
-### 7. Manual Hyperparameter Tuning
+### 7. cross_val_score()
+
+Scikit-learn's `cross_val_score()` was used to perform the same 5-Fold Cross Validation automatically.
+
+A `Pipeline` containing `StandardScaler` and each regression model was used to ensure feature scaling was performed independently inside every fold, preventing data leakage.
+
+The mean and standard deviation of the cross-validation scores were used to compare model performance.
+
+---
+
+### 8. Manual Hyperparameter Tuning
 
 Multiple alpha values were tested manually for both Ridge and Lasso Regression.
 
 Example:
 
 ```python
-alphas = [
+alphas=[
     0.025,
     0.05,
     0.075,
@@ -173,25 +185,51 @@ Each alpha was evaluated using 5-Fold Cross Validation to determine the best ave
 
 ---
 
+### 9. GridSearchCV
+
+`GridSearchCV` was used to automate hyperparameter tuning for Ridge and Lasso Regression.
+
+Example:
+
+```python
+ridge_para={"ridge__alpha":[0.0001,0.001,0.01,0.1,0.15]}
+lasso_para={"lasso__alpha":[0.05,0.075,0.1,0.125,0.15,0.175,0.2,0.225,0.25,0.3]}
+```
+
+Using 5-Fold Cross Validation, `GridSearchCV` evaluated every alpha value and automatically selected the model with the highest average R² score.
+
+The best alpha obtained matched the manually tuned result.
+
+---
+
 # Results
 
 ### Single Train/Test Split
 
-| Model | R² |
-|------|---:|
-| Linear Regression | 0.82 |
-| Ridge Regression | 0.82 |
+| Model                      |   R² |
+| -------------------------- | ---: |
+| Linear Regression          | 0.82 |
+| Ridge Regression           | 0.82 |
 | Lasso Regression (α = 0.1) | 0.86 |
 
 ---
 
 ### Manual 5-Fold Cross Validation
 
-| Model | Average R² |
-|------|-----------:|
-| Linear Regression | 0.8074 |
-| Ridge Regression | 0.8074 |
+| Model                            | Average R² |
+| -------------------------------- | ---------: |
+| Linear Regression                |     0.8074 |
+| Ridge Regression                 |     0.8074 |
 | Lasso Regression (Best α ≈ 0.15) | **0.8234** |
+
+---
+
+### GridSearchCV
+
+| Model            | Best Alpha | Best Average R² |
+| ---------------- | ---------: | --------------: |
+| Ridge Regression |       0.15 |          0.7843 |
+| Lasso Regression |       0.15 |      **0.8116** |
 
 ---
 
@@ -199,11 +237,13 @@ Each alpha was evaluated using 5-Fold Cross Validation to determine the best ave
 
 Linear Regression provided a strong baseline.
 
-Ridge Regression produced almost identical performance across all tested alpha values, indicating that this dataset is not highly sensitive to L2 regularization.
+Ridge Regression produced nearly identical performance across different alpha values, indicating that this dataset is not highly sensitive to L2 regularization.
 
-Lasso Regression benefited from hyperparameter tuning. An alpha value around **0.15** produced the highest average R² score, improving generalization by removing weaker features while retaining important ones.
+Lasso Regression consistently produced the best average R² score after hyperparameter tuning.
 
-K-Fold Cross Validation provided a more reliable estimate of model performance than relying on a single train/test split.
+Both manual tuning and `GridSearchCV` selected **0.15** as the best alpha, validating the manual implementation.
+
+Using a `Pipeline` ensured preprocessing occurred independently within every fold, preventing data leakage during cross-validation.
 
 ---
 
@@ -211,16 +251,19 @@ K-Fold Cross Validation provided a more reliable estimate of model performance t
 
 Through this project I learned:
 
-* Why StandardScaler is important for Ridge and Lasso Regression.
+* Why `StandardScaler` is important for Ridge and Lasso Regression.
 * Difference between L1 and L2 regularization.
 * Ridge shrinks coefficients but keeps every feature.
 * Lasso can shrink coefficients to exactly zero, performing automatic feature selection.
 * Alpha controls the strength of regularization.
 * Different models respond differently to the same alpha value.
 * How manual K-Fold Cross Validation works.
+* How `cross_val_score()` automates K-Fold Cross Validation.
 * Why preprocessing must be performed inside each fold to avoid data leakage.
+* How `Pipeline` prevents data leakage by fitting the scaler only on the training portion of each fold.
 * Why the average cross-validation score is more reliable than a single train/test split.
-* How manual hyperparameter tuning helps identify the best-performing model before using GridSearchCV.
+* How manual hyperparameter tuning works.
+* How `GridSearchCV` automates hyperparameter tuning and selects the best-performing model.
 
 ---
 
@@ -235,7 +278,7 @@ Through this project I learned:
 
 # Future Improvements
 
-* Implement GridSearchCV
-* Compare automatically selected alpha values with manual tuning
+* Implement `RandomizedSearchCV`
 * Explore Elastic Net Regression
 * Compare additional regression algorithms
+* Apply these techniques to larger real-world datasets

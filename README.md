@@ -73,7 +73,7 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 ---
 
-### Day 3 - Cross Validation and Hyperparameter Tuning
+### Day 3 - Cross Validation and Manual Hyperparameter Tuning
 
 **Topics Covered**
 
@@ -107,6 +107,39 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 ---
 
+### Day 4 - Scikit-learn Cross Validation and GridSearchCV
+
+**Topics Covered**
+
+* `cross_val_score()`
+* `Pipeline`
+* Data Leakage
+* GridSearchCV
+* Automated Hyperparameter Tuning
+* Pipeline Parameter Naming (`ridge__alpha`, `lasso__alpha`)
+
+**Project**
+
+* Automated 5-Fold Cross Validation using `cross_val_score()`
+* Hyperparameter tuning using `GridSearchCV`
+* Comparison of manual tuning with Scikit-learn implementations
+
+**Libraries Used**
+
+* Pandas
+* NumPy
+* Scikit-learn
+
+**Status**
+
+* Implemented `cross_val_score()`
+* Built Pipelines for Linear, Ridge, and Lasso Regression
+* Prevented data leakage using `Pipeline`
+* Implemented `GridSearchCV`
+* Verified that `GridSearchCV` selected the same best alpha as the manual implementation
+
+---
+
 ## Roadmap
 
 * [x] Linear Regression
@@ -115,7 +148,8 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 * [x] Lasso Regression
 * [x] K-Fold Cross Validation
 * [x] Hyperparameter Tuning
-* [ ] GridSearchCV
+* [x] cross_val_score()
+* [x] GridSearchCV
 * [ ] Logistic Regression
 * [ ] Decision Trees
 * [ ] Random Forest
