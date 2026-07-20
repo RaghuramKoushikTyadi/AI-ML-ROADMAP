@@ -14,30 +14,30 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 **Topics Covered**
 
-* Introduction to Linear Regression
-* Exploratory Data Analysis (EDA)
-* Missing value analysis
-* Duplicate value analysis
-* Correlation analysis
-* One-Hot Encoding
-* Data preprocessing
+- Introduction to Linear Regression
+- Exploratory Data Analysis (EDA)
+- Missing value analysis
+- Duplicate value analysis
+- Correlation analysis
+- One-Hot Encoding
+- Data preprocessing
 
 **Project**
 
-* Student Performance Prediction
+- Student Performance Prediction
 
 **Libraries Used**
 
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Scikit-learn
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
 
 **Status**
 
-* Completed data preprocessing
-* Completed model training and evaluation
+- Completed data preprocessing
+- Completed model training and evaluation
 
 ---
 
@@ -45,31 +45,31 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 **Topics Covered**
 
-* Feature Scaling using StandardScaler
-* Ridge Regression (L2 Regularization)
-* Lasso Regression (L1 Regularization)
-* Understanding Regularization
-* Alpha (Regularization Strength)
-* Feature Selection using Lasso
-* Model comparison (Linear vs Ridge vs Lasso)
+- Feature Scaling using StandardScaler
+- Ridge Regression (L2 Regularization)
+- Lasso Regression (L1 Regularization)
+- Understanding Regularization
+- Alpha (Regularization Strength)
+- Feature Selection using Lasso
+- Model comparison (Linear vs Ridge vs Lasso)
 
 **Project**
 
-* Comparison of Linear Regression, Ridge Regression, and Lasso Regression on the Student Performance dataset
+- Comparison of Linear Regression, Ridge Regression, and Lasso Regression on the Student Performance dataset
 
 **Libraries Used**
 
-* Pandas
-* NumPy
-* Scikit-learn
+- Pandas
+- NumPy
+- Scikit-learn
 
 **Status**
 
-* Implemented Ridge Regression
-* Implemented Lasso Regression
-* Compared all three regression models
-* Experimented with different alpha values
-* Completed model evaluation and comparison
+- Implemented Ridge Regression
+- Implemented Lasso Regression
+- Compared all three regression models
+- Experimented with different alpha values
+- Completed model evaluation and comparison
 
 ---
 
@@ -77,33 +77,32 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 **Topics Covered**
 
-* K-Fold Cross Validation
-* Manual Cross Validation
-* Model Evaluation using Cross Validation
-* Hyperparameter Tuning
-* Ridge Alpha Tuning
-* Lasso Alpha Tuning
+- K-Fold Cross Validation
+- Manual Cross Validation
+- Model Evaluation using Cross Validation
+- Hyperparameter Tuning
+- Ridge Alpha Tuning
+- Lasso Alpha Tuning
 
 **Project**
 
-* Manual implementation of 5-Fold Cross Validation
-* Manual hyperparameter tuning for Ridge and Lasso Regression
-* Comparison of multiple alpha values using K-Fold Cross Validation
+- Manual implementation of 5-Fold Cross Validation
+- Manual hyperparameter tuning for Ridge and Lasso Regression
+- Comparison of multiple alpha values using K-Fold Cross Validation
 
 **Libraries Used**
 
-* Pandas
-* NumPy
-* Scikit-learn
+- Pandas
+- NumPy
+- Scikit-learn
 
 **Status**
 
-* Implemented manual K-Fold Cross Validation
-* Compared Linear Regression, Ridge Regression, and Lasso Regression on identical folds
-* Calculated average R² scores across all folds
-* Tuned Ridge and Lasso using multiple alpha values
-* Observed Ridge remained relatively stable across different alpha values
-* Found the best-performing Lasso alpha (approximately 0.15) for this dataset
+- Implemented manual K-Fold Cross Validation
+- Compared Linear Regression, Ridge Regression, and Lasso Regression on identical folds
+- Calculated average R² scores across all folds
+- Tuned Ridge and Lasso using multiple alpha values
+- Found the best-performing Lasso alpha using cross validation
 
 ---
 
@@ -111,57 +110,97 @@ The goal is to build a strong foundation by learning the concepts, implementing 
 
 **Topics Covered**
 
-* `cross_val_score()`
-* `Pipeline`
-* Data Leakage
-* GridSearchCV
-* Automated Hyperparameter Tuning
-* Pipeline Parameter Naming (`ridge__alpha`, `lasso__alpha`)
+- `cross_val_score()`
+- `Pipeline`
+- Data Leakage
+- `GridSearchCV`
+- Automated Hyperparameter Tuning
+- Pipeline Parameter Naming (`ridge__alpha`, `lasso__alpha`)
 
 **Project**
 
-* Automated 5-Fold Cross Validation using `cross_val_score()`
-* Hyperparameter tuning using `GridSearchCV`
-* Comparison of manual tuning with Scikit-learn implementations
+- Automated 5-Fold Cross Validation using `cross_val_score()`
+- Hyperparameter tuning using `GridSearchCV`
+- Comparison of manual tuning with Scikit-learn implementations
 
 **Libraries Used**
 
-* Pandas
-* NumPy
-* Scikit-learn
+- Pandas
+- NumPy
+- Scikit-learn
 
 **Status**
 
-* Implemented `cross_val_score()`
-* Built Pipelines for Linear, Ridge, and Lasso Regression
-* Prevented data leakage using `Pipeline`
-* Implemented `GridSearchCV`
-* Verified that `GridSearchCV` selected the same best alpha as the manual implementation
+- Implemented `cross_val_score()`
+- Built Pipelines for Linear, Ridge, and Lasso Regression
+- Prevented data leakage using `Pipeline`
+- Implemented `GridSearchCV`
+- Verified manual and automated hyperparameter tuning results
+
+---
+
+### Day 5 - Logistic Regression
+
+**Topics Covered**
+
+- Introduction to Classification
+- Regression vs Classification
+- Binary Classification
+- Sigmoid Function
+- Probability Prediction
+- Decision Threshold
+- Logistic Regression
+- Feature Scaling using StandardScaler
+- Confusion Matrix
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+
+**Project**
+
+- Breast Cancer Classification using Logistic Regression
+
+**Libraries Used**
+
+- Pandas
+- NumPy
+- Scikit-learn
+
+**Status**
+
+- Performed exploratory data analysis
+- Built a Logistic Regression classifier
+- Standardized features using `StandardScaler`
+- Evaluated the model using Accuracy, Precision, Recall, and F1-Score
+- Generated and interpreted the Confusion Matrix
+- Achieved approximately **98% classification accuracy** on the test set
 
 ---
 
 ## Roadmap
 
-* [x] Linear Regression
-* [x] Multiple Linear Regression
-* [x] Ridge Regression
-* [x] Lasso Regression
-* [x] K-Fold Cross Validation
-* [x] Hyperparameter Tuning
-* [x] cross_val_score()
-* [x] GridSearchCV
-* [ ] Logistic Regression
-* [ ] Decision Trees
-* [ ] Random Forest
-* [ ] Support Vector Machines
-* [ ] K-Nearest Neighbors
-* [ ] Naive Bayes
-* [ ] Clustering
-* [ ] Principal Component Analysis (PCA)
-* [ ] Neural Networks
-* [ ] Deep Learning
-* [ ] Natural Language Processing
-* [ ] Computer Vision
+- [x] Linear Regression
+- [x] Multiple Linear Regression
+- [x] Ridge Regression
+- [x] Lasso Regression
+- [x] K-Fold Cross Validation
+- [x] Hyperparameter Tuning
+- [x] `cross_val_score()`
+- [x] `GridSearchCV`
+- [x] Logistic Regression
+- [ ] Multiclass Logistic Regression
+- [ ] Decision Trees
+- [ ] Random Forest
+- [ ] Support Vector Machines
+- [ ] K-Nearest Neighbors
+- [ ] Naive Bayes
+- [ ] Clustering
+- [ ] Principal Component Analysis (PCA)
+- [ ] Neural Networks
+- [ ] Deep Learning
+- [ ] Natural Language Processing
+- [ ] Computer Vision
 
 ---
 

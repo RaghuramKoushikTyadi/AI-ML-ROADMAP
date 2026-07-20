@@ -1,41 +1,41 @@
-# Student Performance Prediction using Linear Regression
+# Linear Regression
 
 ## Overview
 
-This project predicts a student's final grade (G3) using Linear Regression.
+This folder contains my implementations of Linear Regression and related regression concepts using multiple datasets.
 
-The project follows the complete machine learning workflow:
-
-- Data preprocessing
-- Feature engineering
-- Model training
-- Model evaluation
-- Performance comparison
-
-Two different models were built to compare how feature selection affects prediction accuracy.
+The projects cover the complete regression workflow, from data preprocessing and exploratory data analysis to model evaluation, regularization, cross-validation, and hyperparameter tuning.
 
 ---
 
-## Project Structure
+## Folder Structure
 
-```
+```text
 linear_regression/
 │
 ├── preprocessing.py
 ├── lin_reg.py
 ├── lin_reg_with_g1_g2.py
+├── ridge.py
+├── lasso.py
+├── k_fold_lin_ridge_lasso.py
+├── k_fold_multiple_alphas.py
+├── cross_val.py
+├── grid_search_cv.py
+├── housing_eda.py
+├── housing_model.py
 ├── student-mat.csv
 ├── student-mat-cleaned.csv
+├── housing.csv
+├── cleaned_housing.csv
 └── README.md
 ```
 
 ---
 
-## Dataset
+# Datasets Used
 
-Dataset used:
-
-Student Performance Dataset
+## 1. Student Performance Dataset
 
 Target Variable
 
@@ -43,135 +43,108 @@ Target Variable
 G3
 ```
 
-Final student grade.
+Predicts the student's final grade.
 
 ---
 
-## Preprocessing
+## 2. California Housing Dataset
 
-The preprocessing script performs the following steps.
+Target Variable
+
+```
+median_house_value
+```
+
+Predicts the median house value using housing-related features.
+
+---
+
+# Topics Covered
+
+- Exploratory Data Analysis (EDA)
+- Missing Value Handling
+- Duplicate Value Analysis
+- Correlation Analysis
+- One-Hot Encoding
+- Feature Engineering
+- Train/Test Split
+- Linear Regression
+- Multiple Linear Regression
+- Ridge Regression (L2 Regularization)
+- Lasso Regression (L1 Regularization)
+- Feature Scaling using StandardScaler
+- Model Coefficients
+- Model Evaluation
+- K-Fold Cross Validation
+- Manual Hyperparameter Tuning
+- `cross_val_score()`
+- Pipelines
+- Data Leakage Prevention
+- GridSearchCV
+
+---
+
+# Workflow
+
+## 1. Data Preprocessing
 
 - Load dataset
-- Inspect dataset
-- Check missing values
+- Explore the dataset
+- Handle missing values
 - Check duplicate rows
-- Create correlation heatmap
-- One-hot encode categorical columns
+- Correlation analysis
+- One-hot encode categorical features
 - Save cleaned dataset
 
-Output
-
-```
-student-mat-cleaned.csv
-```
-
 ---
 
-## Model Workflow
+## 2. Feature Selection
 
-### 1. Load cleaned dataset
+Separate the dataset into:
 
 ```python
-df = pd.read_csv(path)
+X = df.drop(columns=[target])
+y = df[target]
 ```
 
 ---
 
-### 2. Select features and target
-
-### Model 1
-
-Previous grades removed.
-
-```python
-X = df.drop(columns=["G1","G2","G3"])
-Y = df["G3"]
-```
-
-This model predicts the final grade without using previous exam scores.
-
----
-
-### Model 2
-
-Previous grades included.
-
-```python
-X = df.drop(columns="G3")
-Y = df["G3"]
-```
-
-This model predicts the final grade using every available feature.
-
----
-
-### 3. Split dataset
+## 3. Train/Test Split
 
 ```python
 train_test_split(
     X,
-    Y,
+    y,
     test_size=0.2,
     random_state=18
 )
 ```
 
-- 80% Training Data
-- 20% Testing Data
-
 ---
 
-### 4. Train Model
+## 4. Feature Scaling (when required)
 
 ```python
-model = LinearRegression()
-
-model.fit(X_train,Y_train)
+StandardScaler()
 ```
 
-The model learns the relationship between the input features and the target variable.
+Used for Ridge and Lasso Regression before model training.
 
 ---
 
-### 5. Learned Parameters
+## 5. Model Training
 
-```python
-model.coef_
-```
+Implemented:
 
-Returns the learned weight for every feature.
-
-Positive coefficient
-
-- Increases predicted grade
-
-Negative coefficient
-
-- Decreases predicted grade
+- Linear Regression
+- Ridge Regression
+- Lasso Regression
 
 ---
 
-```python
-model.intercept_
-```
+## 6. Model Evaluation
 
-Returns the starting prediction before feature contributions are added.
-
----
-
-### 6. Prediction
-
-```python
-preds = model.predict(X_test)
-```
-
-The trained model predicts grades for students it has never seen before.
-
----
-
-### 7. Evaluation
-
-Metrics used
+Regression metrics used:
 
 - Mean Absolute Error (MAE)
 - Mean Squared Error (MSE)
@@ -179,61 +152,75 @@ Metrics used
 
 ---
 
-# Results
+## 7. Cross Validation
 
-## Model 1 (Without G1 and G2)
+Implemented both:
 
-| Metric | Value |
-|--------|------:|
-| MAE | 2.70 |
-| MSE | 12.68 |
-| R² | 0.18 |
+- Manual 5-Fold Cross Validation
+- `cross_val_score()`
 
-### Observation
-
-The model predicts the final grade with an average error of about **2.7 marks**.
-
-Since previous grades were removed, the model relies only on demographic, family and study related features.
-
-This makes prediction much harder.
+Compared model performance across folds.
 
 ---
 
-## Model 2 (With G1 and G2)
+## 8. Hyperparameter Tuning
 
-| Metric | Value |
-|--------|------:|
-| MAE | 1.25 |
-| MSE | 2.79 |
-| R² | 0.82 |
+Implemented:
 
-### Observation
+- Manual alpha tuning
+- `GridSearchCV`
 
-Including G1 and G2 significantly improves prediction performance.
+Compared the best alpha values selected by both approaches.
 
-Average prediction error drops to around **1.25 marks**, and the model explains about **82%** of the variation in final grades.
+---
 
-This shows how strongly previous academic performance influences the final grade.
+# Projects
+
+## Student Performance Prediction
+
+Built multiple regression models to predict students' final grades.
+
+Compared:
+
+- Linear Regression
+- Ridge Regression
+- Lasso Regression
+
+Also compared performance with and without previous exam scores (G1 and G2).
+
+---
+
+## California Housing Price Prediction
+
+Performed:
+
+- Exploratory Data Analysis
+- Data Cleaning
+- One-Hot Encoding
+- Linear Regression
+
+Predicted median house prices using housing features.
 
 ---
 
 # What I Learned
 
-Through this project I learned:
+Through these projects I learned:
 
 - Machine Learning workflow
-- Difference between features (X) and target (Y)
-- Train/Test Split
-- Data leakage
-- Linear Regression
-- Model coefficients
-- Model intercept
-- Model prediction
-- MAE
-- MSE
-- R² Score
-- Feature selection
-- Effect of different features on model performance
+- Feature Engineering
+- Regression Modeling
+- Feature Scaling
+- Regularization
+- Ridge Regression
+- Lasso Regression
+- Hyperparameter Tuning
+- K-Fold Cross Validation
+- `cross_val_score()`
+- Pipelines
+- Preventing Data Leakage
+- GridSearchCV
+- Model Evaluation using MAE, MSE and R² Score
 
 ---
 
@@ -250,8 +237,8 @@ Through this project I learned:
 
 # Future Improvements
 
+- Compare additional regression models
+- Save trained models using Joblib
 - Build a Streamlit application
-- Save the trained model using Joblib
-- Compare Linear Regression with other regression models
-- Hyperparameter tuning
-- Deploy the project
+- Deploy trained models
+- Experiment with larger real-world regression datasets
